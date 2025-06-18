@@ -1,7 +1,9 @@
-// 7️⃣ Escribe una función `esPar` que reciba un número
-//     y retorne si es par o impar.
-function esPar(resivir){
-    return 'el numero es', (resivir)
+// 8️⃣ Haz una función `repetirPalabra` que reciba una palabra y un número,
+//     y la repita esa cantidad de veces.
+function repetirPalabra(palabra, numero) {
+    for (let i = 1; i < numero; i++) {
+       console.log('nelson cabezon; ', palabra);
+    }
 }
-esPar(5)
-console.log('el numero es')
+
+repetirPalabra('David', 5)
