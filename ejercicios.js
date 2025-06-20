@@ -1,9 +1,2 @@
-// 8️⃣ Haz una función `repetirPalabra` que reciba una palabra y un número,
-//     y la repita esa cantidad de veces.
-function repetirPalabra(palabra, numero) {
-    for (let i = 1; i < numero; i++) {
-       console.log('nelson cabezon; ', palabra);
-    }
-}
-
-repetirPalabra('David', 5)
+// Ejercicio 9
+// Crea un programa que imprima los números del 10 al 1 en orden descendente
