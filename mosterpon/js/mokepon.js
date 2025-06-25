@@ -7,6 +7,8 @@ function iniciarJuego() {
     let sectionSelecionarAtaque = document.getElementById('selecionar-ataque')
     sectionSelecionarAtaque.style.display = 'none'
 
+
+    
     let sectionReiniciar = document.getElementById('reiniciar')
     sectionReiniciar.style.display = 'none'
 

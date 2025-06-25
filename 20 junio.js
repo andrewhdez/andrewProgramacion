@@ -36,13 +36,22 @@ numero()
  * Gana si tiene 100 puntos o más Y no perdió vidas, O si tiene comodín.
  ************************************************************/
 
-
+function jugador(puntos, vidas, comodin) {
+    if(puntos >= 100 && vidas >= 3 || comodin >= 1) {
+        console.log('ganaste')
+    } else {
+        console.log('perdiste')
+    }
+}
+jugador(200, 1, 0)
 
 /************************************************************
  * 4. Año bisiesto
  * Crear una función que detecte si un año es bisiesto.
  * Es bisiesto si es divisible entre 4 y NO entre 100, O si es divisible entre 400.
  ************************************************************/
+
+
 
 /************************************************************
  * 5. Contraseña segura
