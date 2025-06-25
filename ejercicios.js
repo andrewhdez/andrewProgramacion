@@ -1,2 +1,3 @@
-// Ejercicio 9
-// Crea un programa que imprima los números del 10 al 1 en orden descendente
+//3. Sistema de puntuación en un juego
+// Crear una función que indique si el jugador ganó.
+//Gana si tiene 100 puntos o más Y no perdió vidas, O si tiene comodín.

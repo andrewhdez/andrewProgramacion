@@ -50,4 +50,4 @@ while (triunfos < 3 && perdidas < 3) {
         }
     }
 
-alert("ganaste " + triunfos + " veces. perdiste " + perdidas + " veces. empate " +  empates + " veces." )
+alert("ganaste " + triunfos + " veces, perdiste " + perdidas + " veces, empate " +  empates + " veces." )

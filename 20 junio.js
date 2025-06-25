@@ -4,17 +4,39 @@
  * Solo entra si tiene 18 años o más Y (tiene boleto VIP o pagó).
  ************************************************************/
 
+function controlDeAcceso(edad, boleto){
+    if (edad >= 18 && boleto === 'vip' || boleto === 'pago') {
+        return 'si puedes pasar'
+    } else {
+        return 'no puedes pasar'
+    }
+} 
+console.log(controlDeAcceso(88,'pago'))
+
 /************************************************************
  * 2. Filtro de números obedientes
  * Crear una función que devuelva true si el número es par O múltiplo de 5,
  * pero NO ambos. Recorre del 1 al 40 e imprime los que cumplan.
  ************************************************************/
 
+function numero() {
+    for (let i = 1; i <= 40; i++) {
+        if (i % 2 === 0 && i % 5 === 0) {
+            console.log(false,i)
+        }else if (i % 2 === 0 || i % 5 === 0) {
+            console.log (true,i)
+        }
+    }
+}
+numero()
+
 /************************************************************
  * 3. Sistema de puntuación en un juego
  * Crear una función que indique si el jugador ganó.
  * Gana si tiene 100 puntos o más Y no perdió vidas, O si tiene comodín.
  ************************************************************/
+
+
 
 /************************************************************
  * 4. Año bisiesto
