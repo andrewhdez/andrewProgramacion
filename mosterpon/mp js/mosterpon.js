@@ -19,11 +19,11 @@ function seleccionarMostruoJugador() {
         alert ('selecciona una mascota')
     }
 
-    seleccionarMostruoEnemigo
+    seleccionarMostruoEnemigo()
 }
 
 function seleccionarMostruoEnemigo() {
-    let ataqueAleatorio = aleatorio
+    let ataqueAleatorio = aleatorio(1,3)
     let spanMostruoEnemigo = document.getElementById('mostruo-enemigo')
 
     if (ataqueAleatorio == 1) {
