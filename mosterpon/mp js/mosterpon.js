@@ -85,9 +85,9 @@ function iniciarJuego() {
         `
     contenedorTarjetas.innerHTML += opcionDeMosterpones
 
-    let inputZombitre = document.getElementById('Zombitre')
-    let inputDraculin = document.getElementById('Draculin')
-    let inputFranquestine = document.getElementById('Franquestine')
+    inputZombitre = document.getElementById('Zombitre')
+    inputDraculin = document.getElementById('Draculin')
+    inputFranquestine = document.getElementById('Franquestine')
 
     })
 
