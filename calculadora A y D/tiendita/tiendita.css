@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Oleo+Script:wght@400;700&display=swap');
+
+.container-seleccionar-verduras {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tiendita {
+    font-family: "Oleo Script", system-ui;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.seccionVF {
+    font-family: "Cedarville Cursive", cursive;
+    display: flex;
+    justify-content: center;
+}
+
+#fritos {
+    text-align: center;
+    padding: 20px;
+}
+
+.sectionFritos {
+    font-family: "Cedarville Cursive", cursive;
+    display: flex;
+    justify-content: center;
+}
+
+#boton-select {
+    margin-top: 20px; 
+    text-align: center;
+}
+
+.selectFR {
+    font-family: "Cedarville Cursive", cursive;
+    margin-top: 20px;
+    width: 100px;
+    height: 25px;
+    background: black;
+    color: white;
+    border-radius: 30px
+}
+
+.seleccionar{
+    margin: 10px;
+    font-family: "Cedarville Cursive", cursive;
+    width: 100px;
+    height: 25px;
+    background: black;
+    color: white;
+    border-radius: 30px
+}
+
+body {
+    height: 600px;
+    background-image: url('./img.tiendita/awa.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

@@ -23,7 +23,7 @@ body {
     font-size: 35px;
 }
 
-.tarjetas {
+.tarjetas, .tarjeta-ataques {
     display: flex;
     gap: 5px;
 }
@@ -57,12 +57,17 @@ body {
     background: #9B7EBD;
     border: 3px solid black;
     color: black;
-    font-family: "Oleo Script", system-ui;
     margin-top: 30px;
+    cursor: pointer;
+    font-family: "Oleo Script", system-ui;
 }
 
 input {
     display: none;
+}
+
+input:checked + label {
+    background-color: purple;
 }
 
 #seleccionar-ataque {
@@ -94,5 +99,42 @@ input {
     margin-top: 20px;
     border-radius: 20px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    border: 1px solid black;
+    color: #F8E7F6;
+    background-color: #DC2525;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: "Oleo Script", system-ui;
+}
+
+.ataques {
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+.ataques-jugador, .ataques-enemigo {
+    margin: 10px;
+    width: 100px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+}
+#mostruo-jugador, #mostruo-enemigo {
+    color: wheat;
+}
+#vidas-jugador, #vidas-enemigo {
+    color: #16C79A;
+}
+
+@media (max-width: 360px) {
+    .tarjetas, .tarjeta-ataques {
+        flex-direction: column;
+    }
 }

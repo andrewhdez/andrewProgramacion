@@ -1,40 +1,107 @@
+const sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
+const sectionReiniciar = document.getElementById('reiniciar')
+const botonMostruoJugador = document.getElementById('boton-mostruo')
+const botonCerebro = document.getElementById('boton-cerebro')
+const botonSangre = document.getElementById('boton-sangre')
+const botonCalabazas = document.getElementById('boton-calabazas')
+const botonReiniciar = document.getElementById('boton-reiniciar')
+
+const sectionSeleccionarMostruo = document.getElementById('seleccionar-mostruo')
+const spanMostruoJugador = document.getElementById('mostruo-jugador')
+
+const spanMostruoEnemigo = document.getElementById('mostruo-enemigo')
+
+const spanVidasJugador = document.getElementById('vidas-jugador')
+const spanVidasEnemigo = document.getElementById('vidas-enemigo')
+
+const sectionMensajes = document.getElementById('resultado')
+const ataquesDelJugador = document.getElementById('ataques-del-jugador')
+const ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
+const contenedorTarjetas = document.getElementById('contenedorTarjetas')
+
+
+let mosterpones = []
 let ataqueMostruo
 let ataqueEnemigo
+let opcionDeMosterpones
+let inputZombitre
+let inputDraculin
+let inputFranquestine
 let vidasJugador = 3
 let vidasEnemigo = 3
 
-function iniciarJuego() {
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'none'
-
-    let sectionReiniciar = document.getElementById('reiniciar')
-    sectionReiniciar.style.display = 'none'
-
-    let botonMostruoJugador = document.getElementById('boton-mostruo')
-    botonMostruoJugador.addEventListener('click', seleccionarMostruoJugador)
-
-    let botonCerebro = document.getElementById('boton-cerebro')
-    botonCerebro.addEventListener('click', ataqueCerebro)
-    let botonSangre = document.getElementById('boton-sangre')
-    botonSangre.addEventListener('click', ataqueSangre)
-    let botonCalabazas = document.getElementById('boton-calabazas')
-    botonCalabazas.addEventListener('click', ataqueCalabazas)
-
-    let botonReiniciar = document.getElementById('boton-reiniciar')
-    botonReiniciar.addEventListener('click', reiniciarJuego)
+class mosterpon {
+    constructor(nombre, foto, vidas) {
+        this.nombre = nombre
+        this.foto = foto
+        this.vidas = vidas
+        this.ataques = []
+    }
 }
 
-function seleccionarMostruoJugador() {
-    let sectionSeleccionarMostruo = document.getElementById('seleccionar-mostruo')
-    sectionSeleccionarMostruo.style.display = 'none'
+let Zombitre = new mosterpon('Zombitre', './imgAndrw/andress.png', '5')
+
+let Draculin = new mosterpon('Draculin', './imgAndrw/andreww.png', '5')
+
+let Franquestine = new mosterpon('Franquestine', './imgAndrw/andrwep.png', '5')
+
+Zombitre.ataques.push(
+    {nombre: '🧠🧠', id: 'boton-cerebro'},
+    {nombre: '🧠🧠', id: 'boton-cerebro'},
+    {nombre: '🧠🧠', id: 'boton-cerebro'},
+    {nombre: '🩸🩸', id: 'boton-sangre'},
+    {nombre: '🎃☠️', id: 'boton-calabazas'},
+)
+
+Draculin.ataques.push(
+    {nombre: '🎃☠️', id: 'boton-calabazas'},
+    {nombre: '🎃☠️', id: 'boton-calabazas'},
+    {nombre: '🎃☠️', id: 'boton-calabazas'},
+    {nombre: '🧠🧠', id: 'boton-cerebro'},
+    {nombre: '🩸🩸', id: 'boton-sangre'},
+)
+
+Franquestine.ataques.push(
+    {nombre: '🩸🩸', id: 'boton-sangre'},
+    {nombre: '🩸🩸', id: 'boton-sangre'},
+    {nombre: '🩸🩸', id: 'boton-sangre'},
+    {nombre: '🧠🧠', id: 'boton-cerebro'},
+    {nombre: '🎃☠️', id: 'boton-calabazas'},
+)
+
+mosterpones.push(Zombitre,Draculin,Franquestine)
+
+function iniciarJuego() {
     
-    let sectionSeleccionarAtaque = document.getElementById('seleccionar-ataque')
-    sectionSeleccionarAtaque.style.display = 'flex'
+    sectionSeleccionarAtaque.style.display = 'none'
+
+    mosterpones.forEach((mosterpon) => {
+        opcionDeMosterpones = `
+            <input type="radio" name="mostruo" id=${mosterpon.nombre} />
+            <label class="tarjeta-de-mosterpon" for=${mosterpon.nombre}>
+                <p>${mosterpon.nombre}</p>
+                <img src=${mosterpon.foto} alt=${mosterpon.nombre}>
+            </label>   
+        `
+    contenedorTarjetas.innerHTML += opcionDeMosterpones
 
     let inputZombitre = document.getElementById('Zombitre')
     let inputDraculin = document.getElementById('Draculin')
     let inputFranquestine = document.getElementById('Franquestine')
-    let spanMostruoJugador = document.getElementById('mostruo-jugador')
+
+    })
+
+    sectionReiniciar.style.display = 'none'
+    botonMostruoJugador.addEventListener('click', seleccionarMostruoJugador)
+    
+    botonReiniciar.addEventListener('click', reiniciarJuego)
+}
+
+function seleccionarMostruoJugador() {
+
+    sectionSeleccionarMostruo.style.display = 'none'
+    
+    sectionSeleccionarAtaque.style.display = 'flex'
 
     if (inputZombitre.checked) {
         spanMostruoJugador.innerHTML = 'Zombitre'
@@ -51,7 +118,6 @@ function seleccionarMostruoJugador() {
 
 function seleccionarMostruoEnemigo() {
     let mostruoAleatorio = aleatorio(1,3)
-    let spanMostruoEnemigo = document.getElementById('mostruo-enemigo')
 
     if (mostruoAleatorio == 1) {
         spanMostruoEnemigo.innerHTML = 'Zombitre'
@@ -90,8 +156,6 @@ function ataqueAleatorioEnemigo() {
 }
 
 function combate() {
-        let spanVidasJugador = document.getElementById('vidas-jugador')
-        let spanVidasEnemigo = document.getElementById('vidas-enemigo')
 
         if(ataqueEnemigo == ataqueMostruo) {
             crearMensaje("EMPATE 👌")
@@ -127,9 +191,7 @@ function combate() {
     }
 
 function crearMensaje(resultado) {
-    let sectionMensajes = document.getElementById('resultado')
-    let ataquesDelJugador = document.getElementById('ataques-del-jugador')
-    let ataquesDelEnemigo = document.getElementById('ataques-del-enemigo')
+    
 
     let nuevoAtaqueDelJugador = document.createElement('p')
     let nuevoAtaqueDelEnemigo = document.createElement('p')
@@ -143,21 +205,12 @@ function crearMensaje(resultado) {
 }
 
 function crearMensajeFinal(resultadoFinal) {
-    let sectionMensajes = document.getElementById('mensajes')
-
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoFinal
-
-    sectionMensajes.appendChild(parrafo)
-
-     let botonCerebro = document.getElementById('boton-cerebro')
+    sectionMensajes.innerHTML = resultadoFinal
+    
     botonCerebro.disabled = true
-    let botonSangre = document.getElementById('boton-sangre')
     botonSangre.disabled = true
-    let botonCalabazas = document.getElementById('boton-calabazas')
     botonCalabazas.disabled = true
-
-    let sectionReiniciar = document.getElementById('reiniciar')
+    
     sectionReiniciar.style.display = 'block'
 }
 

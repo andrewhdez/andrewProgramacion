@@ -3,7 +3,6 @@
     <head>
         <meta charset="utf-8" />
         <title>MOSTERPON¡!</title>
-        <script src="./mp js/mosterpon.js"></script>
         <link rel="stylesheet" href="./stylesPon.css">
     </head>
     <body>
@@ -12,24 +11,8 @@
 
             <h2 class="subtitulo">elige tu mostruo:</h2>
 
-            <div class="tarjetas">
-                <input type="radio" name="mostruo" id="Zombitre" />
-                <label class="tarjeta-de-mosterpon" for="Zombitre">
-                    <p>Zombitre</p>
-                    <img src="./imgAndrw/andress.png" alt="Zombitre">
-                </label> <br>
+            <div id="contenedorTarjetas" class="tarjetas">
 
-                <input type="radio" name="mostruo" id="Draculin" />
-                <label class="tarjeta-de-mosterpon" for="Draculin">
-                    <p>Draculin</p>
-                    <img src="./imgAndrw/andreww.png" alt="Draculin">
-                </label> <br>
-
-                <input type="radio" name="mostruo" id="Franquestine" />
-                <label class="tarjeta-de-mosterpon" for="Franquestine">
-                    <p>Franquestine</p>
-                    <img src="./imgAndrw/andrwep.png" alt="Franquestine">
-                </label> <br>
             </div>
             
             <button id="boton-mostruo">seleccionar</button>
@@ -40,7 +23,7 @@
 
             <h2 class="subtitulo">elige tu ataque:</h2>
 
-            <div>
+            <div class="tarjeta-ataques">
                 <button id="boton-cerebro" class="boton-de-ataque">CEREBRO! 🧠🧠</button>
                 <button id="boton-sangre" class="boton-de-ataque">SANGRE¡ 🩸🩸</button>
                 <button id="boton-calabazas" class="boton-de-ataque">CALABAZAS! 🎃☠️</button>
@@ -54,12 +37,19 @@
                 </section>
             </div>
 
-            <div>
-                <div id="ataques-del-jugador"></div>
-                <div id="ataques-del-enemigo"></div>
-                <p>tu mostruo <spam id="mostruo-jugador"></spam> tiene <span id="vidas-jugador">3</span> vidas</p>
-                <p>el mostruo <spam id="mostruo-enemigo"></spam> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+            <div class="ataques">
+                <div class="ataques-jugador">
+                    <p id="vidas-jugador">3</p>
+                    <p id="mostruo-jugador"></p>
+                    <div id="ataques-del-jugador"></div>
+                </div>
+                <div class="ataques-enemigo">
+                    <p id="vidas-enemigo">3</p>
+                    <p id="mostruo-enemigo"></p>
+                    <div id="ataques-del-enemigo"></div>
+                </div>
             </div>
         </section>
+        <script src="./mp js/mosterpon.js"></script>
     </body>
 </html>

@@ -1,13 +1,17 @@
+body {
+    font-family: "Oleo Script", system-ui;
+    background-color: #41B3A2;
+}
+
+.sction1 {
+    background-color: #41B3A2;
+}
+
 .container-calculator {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.btn {
-    width: 40px;
-    height: 25px;
 }
 
 button {
