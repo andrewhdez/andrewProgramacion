@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&family=Oleo+Script:wght@400;700&display=swap');
+
+body {
+    font-family: "Oleo Script", system-ui;
+    background-color: rebeccapurple;
+}
+
+#seleccionar-mostruo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    color: white;
+    font-size: 40px;
+    font-family: "Oleo Script", system-ui;
+}
+
+.subtitulo {
+    color: white;
+    font-size: 35px;
+}
+
+.tarjetas {
+    display: flex;
+    gap: 5px;
+}
+
+.tarjeta-de-mosterpon {
+    width: 195px;
+    height: 140px;
+    background: #D91656;
+    padding: 10px;
+    border: 1px solid white;
+    box-sizing: border-box;
+    border-radius: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFC898;
+}
+
+.tarjeta-de-mosterpon img {
+    width: 85px;
+}
+
+.tarjeta-de-mosterpon:hover {
+    cursor: pointer;
+}
+
+#boton-mostruo {
+    width: 185px;
+    height: 50px;
+    border-radius: 35px;
+    background: #9B7EBD;
+    border: 3px solid black;
+    color: black;
+    font-family: "Oleo Script", system-ui;
+    margin-top: 30px;
+}
+
+input {
+    display: none;
+}
+
+#seleccionar-ataque {
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-de-ataque {
+    background-color: #AF1740;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border-color: transparent;
+    width: 150px;
+    color: antiquewhite;
+    height: 60px;
+    font-family: "Oleo Script", system-ui;
+    border: 1px solid black;
+}
+
+.boton-de-ataque:hover {
+    cursor: pointer;
+}
+
+#mensajes {
+    width: 280px;
+    background: #DC2525;
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}

@@ -5,36 +5,75 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="styleCal.css">
+            <script src="https://cdn.jsdelivr.net/npm/mathjs@12.4.1/lib/browser/math.js"></script>
         </head>
     <body>
         <div class="container-calculator">
             <h1>calculadora💯🧪</h1>
             <table>
+                <tr>
+                    <td colspan="4"><input type="text" id="inputCalculator" readonly></td>
+                </tr>
             <tr>
-                <td id="btn7" class="btn"><button>7</button></td>
-                <td id="btn8" class="btn"><button>8</button></td>
-                <td id="btn9" class="btn"><button>9</button></td>
-                <td id="btnMultiplicar" class="btn"><button>X</button></td>
+                <td id="btn7" class="btn"><button onclick="press('7')">7</button></td>
+                <td id="btn8" class="btn"><button onclick="press('8')">8</button></td>
+                <td id="btn9" class="btn"><button onclick="press('9')">9</button></td>
+                <td id="btnDividir" class="btn"><button onclick="press('/')">÷</button></td>
             </tr>
             <tr>
-                <td id="btn4" class="btn"><button>4</button></td>
-                <td id="btn5 class="btn"><button>5</button></td>
-                <td id="btn6" class="btn"><button>6</button></td>
-                <td id="btnRestar" class="btn"><button>-</button></td>
+                <td id="btn4" class="btn"><button onclick="press('4')">4</button></td>
+                <td id="btn5" class="btn"><button onclick="press('5')">5</button></td>
+                <td id="btn6" class="btn"><button onclick="press('6')">6</button></td>
+                <td id="btnMultiplicar" class="btn"><button onclick="press('*')">X</button></td>
             </tr>
             <tr>
-                <td id="btn1" class="btn"><button>1</button></td>
-                <td id="btn2" class="btn"><button>2</button></td>
-                <td id="btn3" class="btn"><button>3</button></td>
-                <td id="btnSumar" class="btn"><button>+</button></td>
+                <td id="btn1" class="btn"><button onclick="press('1')">1</button></td>
+                <td id="btn2" class="btn"><button onclick="press('2')">2</button></td>
+                <td id="btn3" class="btn"><button onclick="press('3')">3</button></td>
+                <td id="btnRestar" class="btn"><button onclick="press('-')">-</button></td>
             </tr>
             <tr>
-                <td></td>
-                <td id="btn0" class="btn"><button>0</button></td>
-                <td id="btn0" class="btn"><button>,</button></td>
-                <td id="btn0" class="btn"><button>=</button></td>
+                <td id="btn0" class="btn"><button onclick="press('0')">0</button></td>
+                <td id="btn," class="btn"><button onclick="press(',')">,</button></td>
+                <td id="btnIgual" class="btn"><button onclick="calculate()">=</button></td>
+                <td id="btnSumar" class="btn"><button onclick="press('+')">+</button></td>
+
+            </tr>
+            <tr>
+                <td colspan="4"><button onclick="clearDisplay()">borrar⌫</button></td>
             </tr>
         </table>
         </div>
+
+        <script>
+            //const math = require('mathjs')
+            let acumulador = ''
+            function press(char) {
+                acumulador += char
+                document.getElementById('inputCalculator').value = acumulador;
+                //console.log(acumulador)
+                
+            }
+
+            function calculate() {
+                // aquí va el algoritmo que nos realiza el calculo
+                try {
+                    const result = math.evaluate(acumulador)
+                    document.getElementById('inputCalculator').value = result;
+                    acumulador = result.toString()
+                } catch (error) {
+                    
+                }
+            }
+
+            function clearDisplay() {
+                acumulador = ''
+                document.getElementById('inputCalculator').value = acumulador;
+            }
+
+
+
+
+        </script>
     </body>
 </html>
