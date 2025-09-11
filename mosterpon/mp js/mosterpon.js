@@ -27,7 +27,7 @@ let opcionDeMosterpones
 let inputZombitre
 let inputDraculin
 let inputFranquestine
-let vidasJugador = 5
+let vidasJugador = 3
 let vidasEnemigo = 3
 
 class mosterpon {
