@@ -7,6 +7,9 @@ function iniciarVenta() {
 
     let fritos = document.getElementById('seccionFr')
     fritos.style.display = 'none'
+
+    let botonReiniciar = document.getElementById('btnReiniciar')
+    botonReiniciar.addeventlistener('click', reiniciarVenta)
 }
 
 function SeleccionarVF() {
@@ -197,6 +200,10 @@ function seleccionarFR() {
     }else {
         alert('selecciona algo!!')
     }
+}
+
+function reiniciarVenta(){
+    location.reload()
 }
 
 window.addEventListener('load', iniciarVenta)

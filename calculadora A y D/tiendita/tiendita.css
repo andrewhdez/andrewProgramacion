@@ -56,6 +56,17 @@
     border-radius: 30px
 }
 
+#btnReiniciar{
+    margin: 25px;
+    font-family: "Cedarville Cursive", cursive;
+    border: 2px solid black;
+    width: 150px;
+    height: 35px;
+    background: purple;
+    color: white;
+    border-radius: 30px
+}
+
 body {
     height: 600px;
     background-image: url('./img.tiendita/awa.jpg');
