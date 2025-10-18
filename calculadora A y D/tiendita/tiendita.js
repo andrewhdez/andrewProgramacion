@@ -9,7 +9,7 @@ function iniciarVenta() {
     fritos.style.display = 'none'
 
     let botonReiniciar = document.getElementById('btnReiniciar')
-    botonReiniciar.addeventlistener('click', reiniciarVenta)
+    botonReiniciar.addEventListener('click', reiniciarVenta)
 }
 
 function SeleccionarVF() {
