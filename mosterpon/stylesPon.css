@@ -31,7 +31,7 @@ body {
 .tarjeta-de-mosterpon {
     width: 195px;
     height: 140px;
-    background: #D91656;
+    background: rgba(0, 6, 128, 0.371);
     padding: 10px;
     border: 1px solid white;
     box-sizing: border-box;
@@ -76,12 +76,12 @@ input:checked + label {
 }
 
 .boton-de-ataque {
-    background-color: #AF1740;
+    background-color: rgba(221, 105, 23, 0.253);
     padding: 10px;
     box-sizing: border-box;
     border-radius: 30px;
     border-color: transparent;
-    width: 150px;
+    width: 80px;
     color: antiquewhite;
     height: 60px;
     font-family: "Oleo Script", system-ui;
@@ -94,7 +94,7 @@ input:checked + label {
 
 #mensajes {
     width: 280px;
-    background: #DC2525;
+    background: #9B7EBD;
     padding: 30px;
     margin-top: 20px;
     border-radius: 20px;
@@ -103,7 +103,7 @@ input:checked + label {
     flex-direction: column;
 }
 
-#boton-reiniciar {
+#botonReiniciar {
     border: 1px solid black;
     color: #F8E7F6;
     background-color: #DC2525;
@@ -131,6 +131,46 @@ input:checked + label {
 }
 #vidas-jugador, #vidas-enemigo {
     color: #16C79A;
+}
+
+#ver-mapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#mapa{
+    border: 1px solid black;
+    width: 550px;
+    height: 288px;
+}
+
+#controles-flechas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.fila-inferior {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.btn-flecha {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-flecha:hover {
+    background-color: purple;
 }
 
 @media (max-width: 360px) {

@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <title>MOSTERPON¡!</title>
         <link rel="stylesheet" href="./stylesPon.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <section id="seleccionar-mostruo">
@@ -18,33 +19,44 @@
             <button id="boton-mostruo">seleccionar</button>
         </section>
 
+        <section id="ver-mapa">
+            <h1 class="titulo">recorre el mapa con tu mosterpon</h1>
+             <canvas id="mapa"></canvas>
+        <div id="controles-flechas">
+            <button onmousedown="moverArriba()" onmouseup="detenerMovimiento()" class="btn-flecha arriba">↑</button>
+        <div class="fila-inferior">
+            <button onmousedown="moverIzquierda()" onmouseup="detenerMovimiento()" class="btn-flecha">←</button>
+            <button onmousedown="moverAbajo()" onmouseup="detenerMovimiento()" class="btn-flecha">↓</button>
+            <button onmousedown="moverDerecha()" onmouseup="detenerMovimiento()" class="btn-flecha">→</button>
+        </div>
+    </div>
+        </section>
+
         <section id="seleccionar-ataque">
             <h1 class="titulo">MOSTERPON!👻🧟‍♂️🎃</h1>
 
             <h2 class="subtitulo">elige tu ataque:</h2>
 
-            <div class="tarjeta-ataques">
-                <button id="boton-cerebro" class="boton-de-ataque">CEREBRO! 🧠🧠</button>
-                <button id="boton-sangre" class="boton-de-ataque">SANGRE¡ 🩸🩸</button>
-                <button id="boton-calabazas" class="boton-de-ataque">CALABAZAS! 🎃☠️</button>
+            <div id="contenedorAtaques" class="tarjeta-ataques">
+
             </div>
             
             <div id="mensajes">
                 <p id="resultado">empieza ya... te quiero ver perder🤐❄️</p>
 
                 <section id="reiniciar">
-                    <button id="boton-reiniciar">reiniciar</button>
+                    <button id="botonReiniciar">reiniciar</button>
                 </section>
             </div>
 
             <div class="ataques">
                 <div class="ataques-jugador">
-                    <p id="vidas-jugador">3</p>
+                    <p id="vidas-jugador">0</p>
                     <p id="mostruo-jugador"></p>
                     <div id="ataques-del-jugador"></div>
                 </div>
                 <div class="ataques-enemigo">
-                    <p id="vidas-enemigo">3</p>
+                    <p id="vidas-enemigo">0</p>
                     <p id="mostruo-enemigo"></p>
                     <div id="ataques-del-enemigo"></div>
                 </div>
