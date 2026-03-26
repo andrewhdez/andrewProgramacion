@@ -21,9 +21,11 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 const sectionVerMapa = document.getElementById('ver-mapa')
 const mapa = document.getElementById('mapa')
 
-let jugadorId 
+let jugadorId = null
+let enemigoId = null
 let enemigosEnMapa = {}
 let mosterpones = []
+let mosterponesEnemigos = []
 let ataqueJugador = []
 let ataqueEnemigo = []
 let opcionDeMosterpones
@@ -44,12 +46,13 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3
-let lienzo = mapa.getContext('2d')
+let peleaActiva = false
 let intervalo
-let mapaBackground = new Image()
+let intervaloAtaques
 let alturaBuscada
 let anchoDelMapa = window.innerWidth - 20
-mapaBackground.src = './mp js/mp.png/imagen.gif'
+let mapaBackground = new Image()
+mapaBackground.src = '/mp.png'
 const anchoMaximoDelMapa = 500
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
@@ -133,12 +136,17 @@ Franquestine.ataques.push(... FRANQUESTINE_ATAQUES)
 
 mosterpones.push(Zombitre,Draculin,Franquestine)
 
+let lienzo
+
 function iniciarJuego() {
+    lienzo = mapa.getContext('2d')
     
     sectionSeleccionarAtaque.style.display = 'none'
     sectionVerMapa.style.display = 'none'
 
     unirseAlJuego()
+
+    contenedorTarjetas.innerHTML = ''
 
     mosterpones.forEach((mosterpon) => {
         opcionDeMosterpones = `
@@ -150,10 +158,11 @@ function iniciarJuego() {
         `
     contenedorTarjetas.innerHTML += opcionDeMosterpones
 
+    })
+
     inputZombitre = document.getElementById('Zombitre')
     inputDraculin = document.getElementById('Draculin')
     inputFranquestine = document.getElementById('Franquestine')
-    })
 
     botonMostruoJugador.addEventListener('click', seleccionarMostruoJugador)
 
@@ -220,6 +229,7 @@ function extraerAtaques(mostruoJugador){
 }
 
 function mostrarAtaques(ataques){
+    contenedorAtaques.innerHTML = ''
     ataques.forEach((ataque) => {
         ataquesMosterpon = `
         <button id=${ataque.id} class="boton-de-ataque Btataque">${ataque.nombre}</button>
@@ -253,16 +263,51 @@ function secuenciaAtaques(){
                 boton.style.background = '#112f58'
                 boton.disabled = true
             }
-            ataqueAleatorioEnemigo()
+            if (ataqueJugador.length === 5) {
+                enviarAtaques()
+            }
         })
     })
 }
 
+function enviarAtaques() {
+    fetch(`http://localhost:8080/mosterpon/${jugadorId}/ataques`, {
+        method: "post",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador
+        })
+    })
+
+    intervaloAtaques = setInterval(obtenerAtaques, 50)
+}
+
+function obtenerAtaques(){
+    fetch(`http://localhost:8080/mosterpon/${enemigoId}/ataques`)
+        .then(function(res) {
+            if (res.ok) {
+                res.json()
+                    .then(function({ ataques }) {
+                        if (ataques.length === 5) {
+                            ataqueEnemigo = ataques
+                            clearInterval(intervaloAtaques)
+                            combate()
+                        }
+                    })
+            }
+        })
+}
+
 function seleccionarMostruoEnemigo(enemigo) {
+    ataqueJugador = []
+    ataqueEnemigo = []
+    ataquesDelJugador.innerHTML = ''
+    ataquesDelEnemigo.innerHTML = ''
     spanMostruoEnemigo.innerHTML = enemigo.nombre
     ataquesMosterponEnemigo = enemigo.ataques
     secuenciaAtaques()
-
 }
 
 function ataqueAleatorioEnemigo() {
@@ -291,6 +336,9 @@ function indexAmbosOponentes(jugador, enemigo){
 }
 
 function combate() {
+    clearInterval(intervalo)
+
+    sectionMensajes.innerHTML = ""
         
     for (let index = 0; index <ataqueJugador.length; index++) {
         if(ataqueJugador[index] === ataqueEnemigo[index]){
@@ -320,6 +368,9 @@ function combate() {
     }
 
     revisarVidas()
+
+    ataqueJugador = []
+    ataqueEnemigo = []
 }
     
 
@@ -331,6 +382,8 @@ function combate() {
         }else{
             crearMensajeFinal("perdiste,sigue intentandolo😁")
         }
+
+        peleaActiva = false
     }
 
 function crearMensaje(resultado) {
@@ -362,33 +415,46 @@ function aleatorio(min,max) {
 }
 
 function pintarCanvas(){
-    if (!mostruoJugadorObjeto) return
+    if (mostruoJugadorObjeto) {
+        mostruoJugadorObjeto.x = mostruoJugadorObjeto.x + mostruoJugadorObjeto.velocidadX
+        mostruoJugadorObjeto.y = mostruoJugadorObjeto.y + mostruoJugadorObjeto.velocidadY
 
-    mostruoJugadorObjeto.x = mostruoJugadorObjeto.x + mostruoJugadorObjeto.velocidadX
-    mostruoJugadorObjeto.y = mostruoJugadorObjeto.y + mostruoJugadorObjeto.velocidadY
+        lienzo.clearRect(0, 0, mapa.width, mapa.height)
 
-    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+        lienzo.drawImage(
+            mapaBackground,
+            0,
+            0,
+            mapa.width,
+            mapa.height
+        )
+        
+        mostruoJugadorObjeto.pintarMosterpon()
 
-    lienzo.drawImage(
-        mapaBackground,
-        0,
-        0,
-        mapa.width,
-        mapa.height
-    )
-    mostruoJugadorObjeto.pintarMosterpon()
+        enviarPosicion(mostruoJugadorObjeto.x, mostruoJugadorObjeto.y)
 
-    enviarPosicion(mostruoJugadorObjeto.x, mostruoJugadorObjeto.y)
+        mosterponesEnemigos.forEach(function (mosterpon) {
+            if (mosterpon) {
+                mosterpon.pintarMosterpon()
+                revisarColision(mosterpon)
+            }
+        })
+        Object.values(enemigosEnMapa).forEach((enemigo) => {
+            enemigo.pintarMosterpon()
+            revisarColision(enemigo)
+        })
+    }
+}
 
-    Object.values(enemigosEnMapa).forEach((enemigo) => {
+Object.values(enemigosEnMapa).forEach((enemigo) => {
     enemigo.pintarMosterpon()
     revisarColision(enemigo)
 })
-}
 
 function enviarPosicion(x, y){
-    if (!jugadorId) return
-
+    if (!jugadorId){
+        return
+    }
     fetch(`http://localhost:8080/mosterpon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
@@ -402,49 +468,30 @@ function enviarPosicion(x, y){
 .then(res => {
     if (res.ok) {
         res.json().then(({ enemigos }) => {
+            mosterponesEnemigos = enemigos
+                .filter(enemigo => enemigo.id !== jugadorId && enemigo.mosterpon)
+                .map((enemigo) => { 
+                    const nombre = enemigo.mosterpon.nombre
+                    let enemigoNuevo = null
 
-            enemigos.forEach((enemigo) => {
-                if (enemigo.id === jugadorId) return
+                    if (nombre === "Zombitre") {
+                        enemigoNuevo = new mosterpon('Zombitre', './imgAndrw/andress.png', 5, './imgAndrw/guisante.png', enemigo.id)
+                        enemigoNuevo.ataques = Zombitre.ataques
+                    } else if (nombre === "Draculin") {
+                        enemigoNuevo = new mosterpon('Draculin', './imgAndrw/andreww.png', 5, './imgAndrw/minionExe.png', enemigo.id)
+                        enemigoNuevo.ataques = Draculin.ataques
+                    } else if (nombre === "Franquestine") {
+                        enemigoNuevo = new mosterpon('Franquestine', './imgAndrw/andrwep.png', 5, './imgAndrw/charmander.png', enemigo.id)
+                        enemigoNuevo.ataques = Franquestine.ataques
+                    }
 
-                const nombre = enemigo.mosterpon?.nombre
-                if (!nombre) return
-
-                if (!enemigosEnMapa[enemigo.id]) {
-
-    let enemigoNuevo = null
-
-    if (nombre === "Zombitre") {
-        enemigoNuevo = new mosterpon(
-            'Zombitre', './imgAndrw/andress.png', 5, './imgAndrw/guisante.png',
-            enemigo.id
-        )
-        enemigoNuevo.ataques = Zombitre.ataques
-    } else if (nombre === "Draculin") {
-        enemigoNuevo = new mosterpon(
-            'Draculin', './imgAndrw/andreww.png', 5, './imgAndrw/minionExe.png',
-            enemigo.id
-        )
-        enemigoNuevo.ataques = Draculin.ataques
-    } else if (nombre === "Franquestine") {
-        enemigoNuevo = new mosterpon(
-          'Franquestine', './imgAndrw/andrwep.png', 5, './imgAndrw/charmander.png',
-            enemigo.id
-        )
-        enemigoNuevo.ataques = Franquestine.ataques
-    }
-
-    if (!enemigoNuevo) return
-
-    enemigoNuevo.x = enemigo.x
-    enemigoNuevo.y = enemigo.y
-
-    enemigosEnMapa[enemigo.id] = enemigoNuevo
-}
-
-enemigosEnMapa[enemigo.id].x = enemigo.x
-enemigosEnMapa[enemigo.id].y = enemigo.y
-
-            })
+                    if (enemigoNuevo) {
+                        enemigoNuevo.x = enemigo.x
+                        enemigoNuevo.y = enemigo.y
+                        enemigosEnMapa[enemigo.id] = enemigoNuevo
+                    }
+                    return enemigoNuevo
+                })
         })
     }
 })
@@ -466,14 +513,7 @@ function moverArriba(){
     mostruoJugadorObjeto.velocidadY = -5
 }
 
-function detenerMovimiento(event){
-    if (
-        event.key !== 'ArrowUp' &&
-        event.key !== 'ArrowDown' &&
-        event.key !== 'ArrowLeft' &&
-        event.key !== 'ArrowRight'
-    ) return
-
+function detenerMovimiento(){
     mostruoJugadorObjeto.velocidadX = 0
     mostruoJugadorObjeto.velocidadY = 0
 }
@@ -507,26 +547,26 @@ function iniciarMapa(){
     
     intervalo = setInterval(pintarCanvas, 50)
     window.addEventListener('keydown', presionTecla)
-    window.addEventListener('keyup', detenerMovimiento)
+    window.addEventListener('keyup', () => {
+    detenerMovimiento()
+})
 }
 
 function obtenerObjetoMostruo() {
     for (let i = 0; i < mosterpones.length; i++) {
         if (mostruoJugador === mosterpones[i].nombre) {
 
-            return new mosterpon(
-                mosterpones[i].nombre,
-                mosterpones[i].foto,
-                mosterpones[i].vidas,
-                mosterpones[i].mapaFoto.src,
-                jugadorId
-            )
+        return new mosterpon(
+            mosterpones[i].nombre,
+            mosterpones[i].foto,
+            mosterpones[i].vidas,
+            mosterpones[i].foto,
+            jugadorId
+        )
         }
     }
     return null
 }
-
-let peleaActiva = false
 
 function revisarColision(enemigo){
     const arribaEnemigo = enemigo.y
@@ -548,15 +588,26 @@ function revisarColision(enemigo){
         return
     }
 
-    if (peleaActiva) return
-    peleaActiva = true
-
-    detenerMovimiento()
-    clearInterval(intervalo)
-    sectionSeleccionarAtaque.style.display = 'flex'
-    sectionVerMapa.style.display = 'none'
-    
-    seleccionarMostruoEnemigo(enemigo)
+    if (!peleaActiva) {
+        peleaActiva = true
+        console.log("¡Colisión detectada!");
+        
+        detenerMovimiento()
+        clearInterval(intervalo)
+        
+        enemigoId = enemigo.id
+        sectionSeleccionarAtaque.style.display = 'flex'
+        sectionVerMapa.style.display = 'none'
+        seleccionarMostruoEnemigo(enemigo)
+    }
 }
 
 window.addEventListener('load', iniciarJuego)
+
+window.addEventListener('beforeunload', () => {
+    if (!jugadorId) return
+
+    fetch(`http://localhost:8080/mosterpon/${jugadorId}/salir`, {
+        method: "post"
+    })
+})

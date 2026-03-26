@@ -3,6 +3,7 @@ const cors = require('cors')
 
 const app = express()
 
+app.use(express.static(__dirname + '/public'))
 app.use(cors())
 app.use(express.json())
 
@@ -23,6 +24,10 @@ class Jugador{
      actualizarPocision(x, y) {
         this.x = x
         this.y = y
+     }
+
+     asignarAtaques(ataques){
+        this.ataques = ataques
      }
 }
 
@@ -76,6 +81,42 @@ app.post("/mosterpon/:jugadorId/posicion", (req, res) => {
 
     res.send({
         enemigos
+    })
+})
+
+app.post('/mosterpon/:jugadorId/salir', (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+
+    const index = jugadores.findIndex(jugador => jugador.id === jugadorId)
+
+    if (index >= 0) {
+        jugadores.splice(index, 1)
+        console.log("Jugador eliminado:", jugadorId)
+    }
+
+    res.end()
+})
+
+app.post('/mosterpon/:jugadorId/ataques', (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const ataques = req.body.ataques || []
+
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+
+    if (jugadorIndex >= 0) {
+        jugadores[jugadorIndex].asignarAtaques(ataques) 
+    }
+
+    res.send({
+        ataques: jugadorIndex >= 0 ? jugadores[jugadorIndex].ataques : []
+    })
+})
+
+app.get('/mosterpon/:jugadorId/ataques', (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
+    res.send({
+        ataques: jugador.ataques || []
     })
 })
 
