@@ -52,8 +52,14 @@ let intervaloAtaques
 let alturaBuscada
 let anchoDelMapa = window.innerWidth - 20
 let mapaBackground = new Image()
-mapaBackground.src = '/mp.png'
+mapaBackground.src = './mp.png/imagen.gif'
+
+let mapaBackgroundCargado = false
+mapaBackground.onload = () => {
+    mapaBackgroundCargado = true
+}
 const anchoMaximoDelMapa = 500
+
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
     anchoDelMapa = anchoMaximoDelMapa -20
@@ -421,13 +427,15 @@ function pintarCanvas(){
 
         lienzo.clearRect(0, 0, mapa.width, mapa.height)
 
-        lienzo.drawImage(
-            mapaBackground,
-            0,
-            0,
-            mapa.width,
-            mapa.height
-        )
+        if (mapaBackgroundCargado) {
+            lienzo.drawImage(
+                mapaBackground,
+                0,
+                0,
+                mapa.width,
+                mapa.height
+            )
+        }
         
         mostruoJugadorObjeto.pintarMosterpon()
 
