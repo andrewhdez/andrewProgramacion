@@ -121,5 +121,5 @@ app.get('/mosterpon/:jugadorId/ataques', (req, res) => {
 })
 
 app.listen(8080, () => {
-    console.log('servidor funcionando')
+    console.log('servidor funcionando', `server running in port:8080 http://localhost:8080`)
 })

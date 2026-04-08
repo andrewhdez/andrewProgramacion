@@ -52,7 +52,7 @@ let intervaloAtaques
 let alturaBuscada
 let anchoDelMapa = window.innerWidth - 20
 let mapaBackground = new Image()
-mapaBackground.src = '/mp.png'
+mapaBackground.src = './mp.png/imagen.gif'
 const anchoMaximoDelMapa = 500
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
